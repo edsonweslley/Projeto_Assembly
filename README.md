@@ -1,4 +1,4 @@
-#Como fazer
+# Como fazer
 
-##Da permissao ao jar e executa
-###GG
+## Da permissao ao jar e executa
+### GG

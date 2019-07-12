@@ -1,22 +1,18 @@
 .data
-	inicial:				.asciz "== Ultimate Calculadora==\n (+) Adicao\n (-) Subtracao\n (*) Multiplicacao\n (/) Divisao\n"
+	inicial:				.asciz "\n== Ultimate Calculadora==\n (+) Adicao\n (-) Subtracao\n (*) Multiplicacao\n (/) Divisao\n"
 	
 	operador:				.space 1
-	
-	resultadoMensagem: 		.asciz "Resultado da operacao: "
-	
-	adicaoMensagem:			.asciz "adicao: "
-	subtracaoMensagem:		.asciz "subtracao: "
-	multiplicacaoMensagem:	.asciz "multiplicacao: "
-	divisaoMensagem:		.asciz "divisao: "
-	
-	nl: 					.asciz "\n"
+		
+	adicaoMensagem:			.asciz "Resultado da adicao = "
+	subtracaoMensagem:		.asciz "Resultado da subtracao = "
+	multiplicacaoMensagem:	.asciz "Resultado da multiplicacao = "
+	divisaoMensagem:		.asciz "Resultado da divisao = "
 
 .text 
 
 _start:
-	li a7, 4
-	la a0, inicial
+	li a7, 4	# Define o servico a ser realizado como print de string
+	la a0, inicial	# Define que a mensagem inicial sera imressa na tela
 	ecall		#Mostra a mensagem de introducao da calculador
 	
 	#Leitura dos operandos begin
@@ -31,45 +27,38 @@ _start:
     mv t1,a0	# Move o inteiro recebido para t1
 	#Leitura dps operandos end
 	
+	li a7, 4			# Define o servico a ser ralizado como impressao de string
+	
 	j adicao	
 	
 	
 adicao: 
 	add s2,t0,t1		# Realiza a operacao de soma
-	la s3, adicaoMensagem
+	la a0, adicaoMensagem
 	j imprimeResultado
 
 subtracao:
 	sub s2,t0,t1		# Realiza a operacao de subtração
-	la s3, subtracaoMensagem
+	la a0, subtracaoMensagem
 	j imprimeResultado
     
 multiplicacao:
 	mul s2,t0,t1		# Realiza a operacao de multiplicacao
-	la s3, multiplicacaoMensagem
+	la a0, multiplicacaoMensagem
 	j imprimeResultado
    	
 divisao:
 	div s2,t0,t1		# Realiza a operacao de divisao
-	la s3, divisaoMensagem
+	la a0, divisaoMensagem
 	j imprimeResultado
 	
 imprimeResultado:
-	#Displays resultadoMensagem
-	li a7, 4
-	la a0, resultadoMensagem
 	ecall
-	
 	
 	li a7, 1			# Define o servico a ser realizado como impressao de inteiros
 	add a0, s2, zero    # Adiciona o resultado da operacao realizada no registrador de saida
     ecall				# Realiza a escrita do inteiro no terminal
     
-    
-    #Displays resultadoMensagem
-	li a7, 4
-	la a0, nl
-	ecall
     j _start			# Retorna para o inicio do programa
     
 fechar:					#Finaliza o programa

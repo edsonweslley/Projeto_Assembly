@@ -91,3 +91,5 @@ imprimeResultado:
 fechar:					# Finaliza o programa
 	li a7, 10
 	ecall
+
+#Wes esteve aqui 
